@@ -1,5 +1,5 @@
 (function() {
-	var base = 'http://localhost:4321/';
+	var base = '%%BASE%%';
 	function js(url, fn) {
 		var s=document.createElement('script');
 		document.getElementsByTagName('head')[0].appendChild(s);
