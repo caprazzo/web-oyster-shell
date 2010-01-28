@@ -1,10 +1,24 @@
 (function() {
 	var base = '%%BASE%%';
+	function find(url) {
+		var ss = document.getElementsByTagName('script');
+		for (var i=0; i<ss.length; i++) {			
+			if (ss[i].src == url) {
+				return true;
+			}
+		}
+		return false;
+	}
 	function js(url, fn) {
-		var s=document.createElement('script');
-		document.getElementsByTagName('head')[0].appendChild(s);
-		if (fn) s.onload=fn;
-		s.src=url;
+		if (!find(url)) {
+			var s=document.createElement('script');
+			document.getElementsByTagName('head')[0].appendChild(s);
+			if (fn) s.onload=fn;
+			s.src=url;
+		}
+		else if(fn) {
+			fn();
+		}
 	}
 	function css(url) {
 		var l=document.createElement('link');
@@ -17,8 +31,9 @@
 	js('http://documentcloud.github.com/underscore/underscore-min.js');
 	js(base + 'lib/json2.js');
 	js(base + 'lib/jquery.couch.js');
+	js(base + ')
 	css(base + 'oyster.css');
 	js(base + 'lib/termlib.js', function() {	
-		js(base + 'oyster.js');
+		js(base + 'oyster.js', function() { oyster(); });
 	});
 })();

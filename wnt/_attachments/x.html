@@ -1,0 +1,18 @@
+<html>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
+	<script type='text/javascript'>
+		var rq = eval('('+decodeURIComponent(window.name)+')');
+		$.ajax({
+			url: rq.url,
+			type: rq.type,
+			data: rq.data||{},
+			dataType: 'text',
+			contentType: "application/json",
+			success: function(data) {
+				window.name = encodeURIComponent(data)
+			},
+			error: function(f,g,h) {
+				window.name = encodeURIComponent(f.responseText);
+			}
+		});
+</script></html>
